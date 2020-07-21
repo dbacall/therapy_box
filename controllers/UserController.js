@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 const validateRegisterInput = require('../validation/register');
 const validateLoginInput = require('../validation/login');
@@ -26,6 +28,7 @@ var UserController = {
           username: req.body.username,
           email: req.body.email,
           password: req.body.password,
+          profilePicture: req.file.path,
         });
 
         bcrypt.genSalt(10, (err, salt) => {
@@ -61,6 +64,7 @@ var UserController = {
           const payload = {
             id: user.id,
             username: user.username,
+            profilePicture: user.profilePicture,
           };
 
           jwt.sign(
