@@ -12,7 +12,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '5000');
 app.set('port', port);
 
 /**
@@ -33,7 +33,7 @@ server.on('listening', onListening);
 
 const mongoose = require('mongoose');
 const mongodb = require('../config/keys').mongoURI;
-mongoose.connect(mongodb, { useNewUrlParser: true });
+mongoose.connect(mongodb, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

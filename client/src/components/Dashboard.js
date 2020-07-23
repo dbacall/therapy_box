@@ -5,7 +5,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
-        <h1>Good day name</h1>
+        <h1>Good day {this.props.location.state.user.username}</h1>
       </div>
     );
   }

@@ -12,7 +12,7 @@ class Register extends Component {
       password2: '',
       profilePicture: '',
       errors: {},
-      redirect: null,
+      redirect: false,
     };
   }
 
@@ -20,22 +20,36 @@ class Register extends Component {
     this.setState({ [e.target.id]: e.target.value });
   };
 
+  onChangeImage = (e) => {
+    this.setState({ profilePicture: e.target.files[0] });
+  };
+
   onSubmit = (e) => {
     e.preventDefault();
-    const newUser = {
-      username: this.state.username,
-      email: this.state.email,
-      password: this.state.password,
-      password2: this.state.password2,
-      profilePicture: this.state.profilePicture,
+    var data = new FormData();
+    data.append('username', this.state.username);
+    data.append('email', this.state.email);
+    data.append('password', this.state.password);
+    data.append('password2', this.state.password2);
+    data.append('profilePicture', this.state.profilePicture);
+
+    // console.log(newUser);
+    const config = {
+      headers: {
+        'Content-type': 'multipart/form-data',
+      },
     };
-    console.log(newUser);
+
     axios
-      .post('http://localhost:5000/users/register', newUser)
+      .post('http://localhost:5000/users/register', data, config)
       .then((res) => {
+        console.log(res);
         this.setState({ redirect: true });
       })
-      .catch((err) => this.setState({ errors: err }));
+      .catch((err) => {
+        console.error(err);
+        this.setState({ errors: err.response.data });
+      });
     console.log(this.state);
   };
 
@@ -93,13 +107,13 @@ class Register extends Component {
               </div>
               <div className="">
                 <input
-                  onChange={this.onChange}
-                  value={this.state.profilePicture}
+                  onChange={this.onChangeImage}
+                  // value={this.state.profilePicture}
                   id="profilePicture"
                   type="file"
                 />
               </div>
-              <div className="" style={{ paddingLeft: '11.250px' }}>
+              <div className="">
                 <button type="submit" className="">
                   Register
                 </button>

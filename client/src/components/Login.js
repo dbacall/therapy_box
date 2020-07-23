@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
 
 class Login extends Component {
   constructor() {
@@ -8,6 +10,8 @@ class Login extends Component {
       username: '',
       password: '',
       errors: {},
+      redirect: false,
+      user: {},
     };
   }
 
@@ -18,14 +22,39 @@ class Login extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const userData = {
-      usernmae: this.state.usernmae,
+      username: this.state.username,
       password: this.state.password,
     };
+
+    axios
+      .post('http://localhost:5000/users/login', userData)
+      .then((res) => {
+        // Save to localStorage
+        // Set token to localStorage
+        const { token } = res.data;
+        // Set token to Auth header
+        // Decode token to get user data
+        const decoded = jwt_decode(token);
+        // Set current user
+        this.setState({ user: decoded, redirect: true });
+      })
+      .catch((err) => {
+        console.error(err);
+        this.setState({ errors: err.response.data });
+      });
+
     console.log(userData);
   };
   render() {
     const { errors } = this.state;
-    return (
+    return this.state.redirect ? (
+      <Redirect
+        to={{
+          pathname: '/dashboard',
+          state: { user: this.state.user },
+        }}
+      />
+    ) : (
       <div className="container">
         <div className="">
           <div className="">
