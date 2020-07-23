@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import clouds from '../assets/Clouds_icon.png';
+import sun from '../assets/Sun_icon.png';
+import rain from '../assets/Rain_icon.png';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -8,6 +11,7 @@ class Dashboard extends Component {
     this.state = {
       tasks: [],
       photos: [],
+      weather: null,
     };
   }
 
@@ -33,9 +37,23 @@ class Dashboard extends Component {
       .catch((err) => {
         console.error(err);
       });
+
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      axios
+        .get(
+          `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=d0a10211ea3d36b0a6423a104782130e`
+        )
+        .then((res) => {
+          // console.log(res.data);
+          this.setState({ weather: res.data });
+        });
+    });
   }
 
   render() {
+    const { weather } = this.state;
     return (
       <div>
         <h1>Good day {this.props.location.state.user.username}</h1>
@@ -44,6 +62,22 @@ class Dashboard extends Component {
           alt="Profile Picture"
           height="200"
         />
+        <div>
+          {weather ? (
+            <div>
+              {weather.weather[0].main === 'Clouds' ? (
+                <img src={clouds} />
+              ) : weather.weather[0].main === 'Sun' ? (
+                <img src={sun} />
+              ) : (
+                <img src={rain} />
+              )}
+
+              <span>{weather.main.temp} degrees</span>
+              <div>{weather.name}</div>
+            </div>
+          ) : null}
+        </div>
         <Link
           to={{
             pathname: '/tasks',
