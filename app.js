@@ -5,21 +5,10 @@ var logger = require('morgan');
 var cors = require('cors');
 const passport = require('passport');
 
-var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var tasksRouter = require('./routes/tasks');
 var bodyParser = require('body-parser');
 var app = express();
-
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   res.header(
-//     'Access-Control-Allow-Headers',
-//     'Origin, X-Requested-With, Content-Type, Accept'
-//   );
-//   res.header('Access-Control-Allow-Credentials', true);
-//   res.header('Access-Control-Allow-Methods', '*'); // enables all the methods to take place
-//   return next();
-// });
 
 app.use(cors());
 app.use(logger('dev'));
@@ -35,6 +24,7 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 app.use('/users', usersRouter);
+app.use('/tasks', tasksRouter);
 
 module.exports = app;
 

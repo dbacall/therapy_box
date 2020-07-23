@@ -1,8 +1,27 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 class Dashboard extends Component {
-  state = {};
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    const userId = this.props.location.state.user.id;
+    console.log(userId);
+    axios
+      .get(`http://localhost:5000/tasks/${userId}`)
+      .then((res) => {
+        console.log(res);
+        this.setState({ tasks: res.data });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
   render() {
     return (
       <div>
@@ -12,7 +31,17 @@ class Dashboard extends Component {
           alt="Profile Picture"
           height="200"
         />
-        <Link to={'/tasks'}>Tasks</Link>
+        <Link
+          to={{
+            pathname: '/tasks',
+            state: {
+              userId: this.props.location.state.user.id,
+              tasks: this.state.tasks,
+            },
+          }}
+        >
+          Tasks
+        </Link>
       </div>
     );
   }

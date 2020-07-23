@@ -29,13 +29,8 @@ class Login extends Component {
     axios
       .post('http://localhost:5000/users/login', userData)
       .then((res) => {
-        // Save to localStorage
-        // Set token to localStorage
         const { token } = res.data;
-        // Set token to Auth header
-        // Decode token to get user data
         const decoded = jwt_decode(token);
-        // Set current user
         this.setState({ user: decoded, redirect: true });
       })
       .catch((err) => {
