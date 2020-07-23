@@ -36,7 +36,7 @@ class Tasks extends Component {
   };
 
   saveTasks = () => {
-    const { userId } = this.props.location.state;
+    const userId = this.props.location.state.user.id;
     this.state.tasks.map((task, i) => {
       if (task.userId === userId) {
         const taskToUpdate = {

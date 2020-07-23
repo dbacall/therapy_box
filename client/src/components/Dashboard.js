@@ -5,7 +5,10 @@ import axios from 'axios';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      tasks: [],
+      photos: [],
+    };
   }
 
   componentDidMount() {
@@ -16,6 +19,16 @@ class Dashboard extends Component {
       .then((res) => {
         console.log(res);
         this.setState({ tasks: res.data });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    axios
+      .get(`http://localhost:5000/photos/${userId}`)
+      .then((res) => {
+        console.log(res);
+        this.setState({ photos: res.data });
       })
       .catch((err) => {
         console.error(err);
@@ -35,12 +48,23 @@ class Dashboard extends Component {
           to={{
             pathname: '/tasks',
             state: {
-              userId: this.props.location.state.user.id,
+              user: this.props.location.state.user,
               tasks: this.state.tasks,
             },
           }}
         >
           Tasks
+        </Link>
+        <Link
+          to={{
+            pathname: '/photos',
+            state: {
+              user: this.props.location.state.user,
+              photos: this.state.photos,
+            },
+          }}
+        >
+          Photos
         </Link>
       </div>
     );

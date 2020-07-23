@@ -6,6 +6,8 @@ import Dashboard from './components/Dashboard';
 import Register from './components/Register';
 import Login from './components/Login';
 import Tasks from './components/Tasks';
+import Photos from './components/Photos';
+import AddPhoto from './components/AddPhoto';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route exact path="/register" component={Register} />
         <Route exact path="/dashboard" component={Dashboard} />
         <Route exact path="/tasks" component={Tasks} />
+        <Route exact path="/photos" component={Photos} />
+        <Route exact path="/photos/add" component={AddPhoto} />
       </div>
     </Router>
   );

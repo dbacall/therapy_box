@@ -2,6 +2,7 @@ var Photo = require('../models/Photo');
 
 var PhotoController = {
   create: (req, res) => {
+    console.log(req.file);
     var newPhoto = new Photo({
       userId: req.body.userId,
       photo: req.file.path,
@@ -24,3 +25,5 @@ var PhotoController = {
     });
   },
 };
+
+module.exports = PhotoController;
