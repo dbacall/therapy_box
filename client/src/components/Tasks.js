@@ -9,14 +9,6 @@ class Tasks extends Component {
     };
   }
 
-  renderTaskList = () => {
-    var list = [];
-    for (var i = 1; i < 7; i++) {
-      list.concat(<li>{i}</li>);
-    }
-    return list;
-  };
-
   addTask = () => {
     this.setState({
       tasks: this.state.tasks.concat({
