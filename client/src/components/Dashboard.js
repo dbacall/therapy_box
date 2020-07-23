@@ -12,6 +12,7 @@ class Dashboard extends Component {
       tasks: [],
       photos: [],
       weather: null,
+      news: null,
     };
   }
 
@@ -50,10 +51,21 @@ class Dashboard extends Component {
           this.setState({ weather: res.data });
         });
     });
+
+    axios
+      .get(
+        'https://api.rss2json.com/v1/api.json?rss_url=http://feeds.skynews.com/feeds/rss/home.xml'
+      )
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          news: res.data.items,
+        });
+      });
   }
 
   render() {
-    const { weather } = this.state;
+    const { weather, news } = this.state;
     return (
       <div>
         <h1>Good day {this.props.location.state.user.username}</h1>
@@ -78,6 +90,22 @@ class Dashboard extends Component {
             </div>
           ) : null}
         </div>
+        <Link
+          to={{
+            pathname: '/news',
+            state: {
+              user: this.props.location.state.user,
+              news: this.state.news,
+            },
+          }}
+        >
+          {news ? (
+            <div>
+              <h3>{news[0].title}</h3>
+              <img src={news[0].thumbnail} />
+            </div>
+          ) : null}
+        </Link>
         <Link
           to={{
             pathname: '/tasks',
