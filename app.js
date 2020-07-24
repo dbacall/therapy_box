@@ -8,6 +8,8 @@ const passport = require('passport');
 var usersRouter = require('./routes/users');
 var tasksRouter = require('./routes/tasks');
 var photosRouter = require('./routes/photos');
+var teamRouter = require('./routes/team');
+
 var bodyParser = require('body-parser');
 var app = express();
 
@@ -27,5 +29,6 @@ require('./config/passport')(passport);
 app.use('/users', usersRouter);
 app.use('/tasks', tasksRouter);
 app.use('/photos', photosRouter);
+app.use('/team', teamRouter);
 
 module.exports = app;
