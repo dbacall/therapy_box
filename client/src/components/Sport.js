@@ -1,33 +1,56 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { csv } from 'd3';
 import sportsData from '../assets/I1.csv';
+import axios from 'axios';
 
-class Sport extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: null,
-      team: '',
-      beatenTeams: null,
-    };
-  }
+function Sport(props) {
+  const [data, setData] = useState(null);
+  const [newTeam, setNewTeam] = useState('');
+  const [oldTeam, setOldTeam] = useState('');
+  const [beatenTeams, setBeatenTeams] = useState(null);
+  const [teamLoaded, setTeamLoaded] = useState(false);
 
-  componentDidMount() {
+  useEffect(() => {
     csv(sportsData).then((res) => {
-      this.setState({ data: res });
+      setData(res);
     });
-  }
+  });
 
-  onChange = (e) => {
-    this.setState({ team: e.target.value });
+  useEffect(() => {
+    if (props.location.state.team.length > 0) {
+      setOldTeam(props.location.state.team[0].name);
+    }
+    // findBeatenTeams();
+  }, [props.location.state]);
+
+  useEffect(() => {
+    if (oldTeam !== '') {
+      setTeamLoaded(true);
+    }
+    // findBeatenTeams();
+  }, [oldTeam]);
+
+  useEffect(() => {
+    if (teamLoaded) {
+      console.log(data);
+      findBeatenTeams(oldTeam);
+      setTeamLoaded(false);
+    }
+  }, [data]);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (newTeam !== '') {
+      findBeatenTeams(newTeam);
+    } else {
+      findBeatenTeams(oldTeam);
+    }
+    saveTeam();
   };
 
-  onSubmit = (e) => {
-    const { team } = this.state;
-    e.preventDefault();
-    var beatenTeams = this.state.data;
-    this.setState({
-      beatenTeams: beatenTeams
+  const findBeatenTeams = (team) => {
+    setBeatenTeams(
+      data
         .filter((game) => {
           return (
             (game.HomeTeam === team && game.FTHG > game.FTAG) ||
@@ -40,36 +63,70 @@ class Sport extends Component {
           } else {
             return game.HomeTeam;
           }
-        }),
-    });
+        })
+    );
   };
 
-  render() {
-    const { data, beatenTeams } = this.state;
-    return (
-      <div>
-        <h1>Champions League Challenge</h1>
-        {data ? (
-          <form onSubmit={this.onSubmit}>
-            <input
-              type="text"
-              placeholder="Input your team here..."
-              value={this.state.team}
-              onChange={this.onChange}
-            />
-            <input type="submit" value="Submit" />
-          </form>
-        ) : null}
-        {beatenTeams ? (
-          <ul>
-            {beatenTeams.map((team) => {
-              return <li>{team}</li>;
-            })}
-          </ul>
-        ) : null}
-      </div>
-    );
-  }
+  const saveTeam = () => {
+    const userId = props.location.state.user.id;
+    if (oldTeam === '') {
+      const team = {
+        name: newTeam,
+        userId: userId,
+      };
+      axios
+        .post('http://localhost:5000/team/create', team)
+        .then((res) => {
+          console.log('Team Added');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      const teamToUpdate = {
+        name: oldTeam,
+      };
+      axios
+        .post(
+          `http://localhost:5000/team/${props.location.state.team[0]._id}`,
+          teamToUpdate
+        )
+        .then((res) => {
+          console.log('Team updated');
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  };
+
+  return (
+    <div>
+      <h1>Champions League Challenge</h1>
+      {data ? (
+        <form onSubmit={onSubmit}>
+          <input
+            type="text"
+            placeholder="Input your team here..."
+            value={oldTeam ? oldTeam : newTeam}
+            onChange={(e) =>
+              props.location.state.team
+                ? setOldTeam(e.target.value)
+                : setNewTeam(e.target.value)
+            }
+          />
+          <input type="submit" value="Save your team" />
+        </form>
+      ) : null}
+      {beatenTeams ? (
+        <ul>
+          {beatenTeams.map((team) => {
+            return <li>{team}</li>;
+          })}
+        </ul>
+      ) : null}
+    </div>
+  );
 }
 
 export default Sport;

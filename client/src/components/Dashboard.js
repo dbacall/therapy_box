@@ -15,6 +15,7 @@ class Dashboard extends Component {
       weather: null,
       news: null,
       clothesData: null,
+      team: [],
     };
   }
 
@@ -38,17 +39,7 @@ class Dashboard extends Component {
         console.error(err);
       });
 
-    navigator.geolocation.getCurrentPosition((position) => {
-      const lat = position.coords.latitude;
-      const lon = position.coords.longitude;
-      axios
-        .get(
-          `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=d0a10211ea3d36b0a6423a104782130e`
-        )
-        .then((res) => {
-          this.setState({ weather: res.data });
-        });
-    });
+    this.getWeather();
 
     axios
       .get(
@@ -101,14 +92,38 @@ class Dashboard extends Component {
           ],
         });
       });
+
+    axios
+      .get(`http://localhost:5000/team/${userId}`)
+      .then((res) => {
+        this.setState({ team: res.data });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
+
+  getWeather = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      axios
+        .get(
+          `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=d0a10211ea3d36b0a6423a104782130e`
+        )
+        .then((res) => {
+          console.log(res);
+          this.setState({ weather: res.data });
+        });
+    });
+  };
 
   getClothesNumber = (clothes, itemOfClothing) => {
     return clothes.filter((item) => item.clothe === itemOfClothing).length;
   };
 
   render() {
-    const { weather, news, clothesData } = this.state;
+    const { weather, news, clothesData, team } = this.state;
     return (
       <div>
         <h1>Good day {this.props.location.state.user.username}</h1>
@@ -149,16 +164,20 @@ class Dashboard extends Component {
             </div>
           ) : null}
         </Link>
-        <Link
-          to={{
-            pathname: '/sport',
-            state: {
-              user: this.props.location.state.user,
-            },
-          }}
-        >
-          Sport
-        </Link>
+        <div>
+          <Link
+            to={{
+              pathname: '/sport',
+              state: {
+                user: this.props.location.state.user,
+                team: team,
+              },
+            }}
+          >
+            Sport
+            {team.length !== 0 ? <h3>{team[0].name}</h3> : null}
+          </Link>
+        </div>
         <Link
           to={{
             pathname: '/tasks',

@@ -4,6 +4,6 @@ var TeamController = require('../controllers/TeamController');
 
 router.post('/create', TeamController.create);
 router.get('/:id', TeamController.all);
-router.post('/team/:id', TeamController.update);
+router.post('/:id', TeamController.update);
 
 module.exports = router;

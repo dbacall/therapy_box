@@ -21,7 +21,7 @@ var TeamController = {
   },
 
   update: (req, res) => {
-    Team.findByIdAndUpdate({ _id: req.params.id }, { name: req.body.message })
+    Team.findByIdAndUpdate({ _id: req.params.id }, { name: req.body.name })
       .then(() =>
         res.status(200).json({ message: 'Team successfully updated' })
       )
