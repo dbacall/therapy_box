@@ -151,6 +151,16 @@ class Dashboard extends Component {
         </Link>
         <Link
           to={{
+            pathname: '/sport',
+            state: {
+              user: this.props.location.state.user,
+            },
+          }}
+        >
+          Sport
+        </Link>
+        <Link
+          to={{
             pathname: '/tasks',
             state: {
               user: this.props.location.state.user,
