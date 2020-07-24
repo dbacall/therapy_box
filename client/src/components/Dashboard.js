@@ -4,6 +4,7 @@ import axios from 'axios';
 import clouds from '../assets/Clouds_icon.png';
 import sun from '../assets/Sun_icon.png';
 import rain from '../assets/Rain_icon.png';
+import { PieChart } from 'react-minimal-pie-chart';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -13,16 +14,15 @@ class Dashboard extends Component {
       photos: [],
       weather: null,
       news: null,
+      clothesData: null,
     };
   }
 
   componentDidMount() {
     const userId = this.props.location.state.user.id;
-    console.log(userId);
     axios
       .get(`http://localhost:5000/tasks/${userId}`)
       .then((res) => {
-        console.log(res);
         this.setState({ tasks: res.data });
       })
       .catch((err) => {
@@ -32,7 +32,6 @@ class Dashboard extends Component {
     axios
       .get(`http://localhost:5000/photos/${userId}`)
       .then((res) => {
-        console.log(res);
         this.setState({ photos: res.data });
       })
       .catch((err) => {
@@ -47,7 +46,6 @@ class Dashboard extends Component {
           `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=d0a10211ea3d36b0a6423a104782130e`
         )
         .then((res) => {
-          // console.log(res.data);
           this.setState({ weather: res.data });
         });
     });
@@ -57,32 +55,77 @@ class Dashboard extends Component {
         'https://api.rss2json.com/v1/api.json?rss_url=http://feeds.skynews.com/feeds/rss/home.xml'
       )
       .then((res) => {
-        console.log(res);
         this.setState({
           news: res.data.items,
         });
       });
+
+    axios
+      .get(
+        'https://cors-anywhere.herokuapp.com/https://therapy-box.co.uk/hackathon/clothing-api.php?username=swapnil'
+      )
+      .then((res) => {
+        var clothes = res.data.payload;
+        this.setState({
+          clothesData: [
+            {
+              title: 'Hoodie',
+              value: this.getClothesNumber(clothes, 'hoodie'),
+              color: 'red',
+            },
+            {
+              title: 'Jumper',
+              value: this.getClothesNumber(clothes, 'jumper'),
+              color: 'green',
+            },
+            {
+              title: 'Jacket',
+              value: this.getClothesNumber(clothes, 'jacket'),
+              color: 'yellow',
+            },
+            {
+              title: 'Sweater',
+              value: this.getClothesNumber(clothes, 'sweater'),
+              color: 'blue',
+            },
+            {
+              title: 'Blazer',
+              value: this.getClothesNumber(clothes, 'blazer'),
+              color: 'orange',
+            },
+            {
+              title: 'Raincoat',
+              value: this.getClothesNumber(clothes, 'raincoat'),
+              color: 'purple',
+            },
+          ],
+        });
+      });
   }
 
+  getClothesNumber = (clothes, itemOfClothing) => {
+    return clothes.filter((item) => item.clothe === itemOfClothing).length;
+  };
+
   render() {
-    const { weather, news } = this.state;
+    const { weather, news, clothesData } = this.state;
     return (
       <div>
         <h1>Good day {this.props.location.state.user.username}</h1>
         <img
           src={`http://localhost:5000/${this.props.location.state.user.profilePicture}`}
-          alt="Profile Picture"
+          alt="Profile Pic"
           height="200"
         />
         <div>
           {weather ? (
             <div>
               {weather.weather[0].main === 'Clouds' ? (
-                <img src={clouds} />
+                <img src={clouds} alt="cloud icon" />
               ) : weather.weather[0].main === 'Sun' ? (
-                <img src={sun} />
+                <img src={sun} alt="sun icon" />
               ) : (
-                <img src={rain} />
+                <img src={rain} alt="rain icon" />
               )}
 
               <span>{weather.main.temp} degrees</span>
@@ -102,7 +145,7 @@ class Dashboard extends Component {
           {news ? (
             <div>
               <h3>{news[0].title}</h3>
-              <img src={news[0].thumbnail} />
+              <img src={news[0].thumbnail} alt="News" />
             </div>
           ) : null}
         </Link>
@@ -128,6 +171,18 @@ class Dashboard extends Component {
         >
           Photos
         </Link>
+        {clothesData ? (
+          <PieChart
+            data={clothesData}
+            radius={20}
+            label={({ dataEntry }) =>
+              `${dataEntry.title}: ${Math.round(dataEntry.percentage)}%`
+            }
+            labelStyle={{
+              fontSize: '1.5px',
+            }}
+          />
+        ) : null}
       </div>
     );
   }

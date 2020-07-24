@@ -27,7 +27,7 @@ class Photos extends Component {
           return (
             <img
               src={`http://localhost:5000/${photo.photo}`}
-              alt={`Photo ${i + 1}`}
+              alt={`${i + 1}`}
               height="200"
             />
           );

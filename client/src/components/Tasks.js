@@ -37,7 +37,7 @@ class Tasks extends Component {
 
   saveTasks = () => {
     const userId = this.props.location.state.user.id;
-    this.state.tasks.map((task, i) => {
+    this.state.tasks.forEach((task, i) => {
       if (task.userId === userId) {
         const taskToUpdate = {
           message: task.message,
