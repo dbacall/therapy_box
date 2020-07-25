@@ -252,7 +252,7 @@ class Dashboard extends Component {
             }}
           >
             <h4 className="row-item-banner">Tasks</h4>
-            <ul className="task-list">
+            <ul className="dashboard-task-list">
               {tasks.slice(0, 3).map((task, i) => {
                 return (
                   <li>
@@ -262,18 +262,18 @@ class Dashboard extends Component {
                       value={task.message}
                       onChange={this.changeTask}
                       disabled
-                      className="task"
+                      className="dashboard-task"
                     />
-                    <label class="checkbox-container">
+                    <label className="dashboard-checkbox-container">
                       <input
                         type="checkbox"
                         id={i}
                         onChange={this.onCheck}
                         checked={tasks[i].completed}
                         disabled
-                        className="task-checkbox"
+                        className="dashboard-task-checkbox"
                       />
-                      <span class="checkmark"></span>
+                      <span class="dashboard-checkmark"></span>
                     </label>
                   </li>
                 );

@@ -106,7 +106,7 @@
   color: black;
 }
 
-.task-list {
+.dashboard-task-list {
   position: absolute;
   list-style-type: none;
   left: 0%;
@@ -114,7 +114,7 @@
   width: 80%;
 }
 
-.task {
+.dashboard-task {
   background-color: transparent;
   color: black;
   border: none;
@@ -124,11 +124,11 @@
   font-size: 20px;
 }
 
-.task:hover {
+.dashboard-task:hover {
   cursor: pointer;
 }
 
-.checkbox-container {
+.dashboard-checkbox-container {
   display: block;
   position: relative;
   padding-left: 35px;
@@ -141,7 +141,7 @@
   user-select: none;
 }
 
-.task-checkbox {
+.dashboard-task-checkbox {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -149,7 +149,7 @@
   width: 0;
 }
 
-.checkmark {
+.dashboard-checkmark {
   position: absolute;
   right: 0;
   margin-top: -11%;
@@ -160,17 +160,17 @@
   border-radius: 6px;
 }
 
-.checkmark:after {
+.dashboard-checkmark:after {
   content: '';
   position: absolute;
   display: none;
 }
 
-.checkbox-container input:checked ~ .checkmark:after {
+.dashboard-checkbox-container input:checked ~ .dashboard-checkmark:after {
   display: block;
 }
 
-.checkbox-container .checkmark:after {
+.dashboard-checkbox-container .dashboard-checkmark:after {
   left: 9px;
   top: 5px;
   width: 5px;
@@ -182,7 +182,7 @@
   transform: rotate(45deg);
 }
 
-.task-checkbox:hover {
+.dashboard-task-checkbox:hover {
   cursor: pointer;
 }
 

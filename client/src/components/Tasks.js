@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import '../stylesheets/Tasks.css';
 
 class Tasks extends Component {
   constructor(props) {
@@ -72,30 +73,39 @@ class Tasks extends Component {
   render() {
     const { tasks } = this.state;
     return (
-      <div>
-        <h1>Tasks</h1>
-        <ul>
+      <div className="tasks-container">
+        <h1 className="tasks-title">Tasks</h1>
+        <ul className="task-list">
           {tasks.map((task, i) => {
             return (
-              <li>
+              <li className="task">
                 <input
                   type="text"
                   id={i}
                   value={task.message}
                   onChange={this.changeTask}
+                  className="task-input"
                 />
-                <input
-                  type="checkbox"
-                  id={i}
-                  onChange={this.onCheck}
-                  checked={tasks[i].completed}
-                />
+                <label className="checkbox-container">
+                  <input
+                    type="checkbox"
+                    id={i}
+                    onChange={this.onCheck}
+                    checked={tasks[i].completed}
+                    className="task-checkbox"
+                  />
+                  <span class="checkmark"></span>
+                </label>
               </li>
             );
           })}
         </ul>
-        <button onClick={this.addTask}>+</button>
-        <button onClick={this.saveTasks}>Save</button>
+        <button onClick={this.addTask} className="add-task-btn">
+          +
+        </button>
+        <button onClick={this.saveTasks} className="save-task-btn">
+          Save
+        </button>
       </div>
     );
   }
