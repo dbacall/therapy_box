@@ -5,6 +5,7 @@ import clouds from '../assets/Clouds_icon.png';
 import sun from '../assets/Sun_icon.png';
 import rain from '../assets/Rain_icon.png';
 import { PieChart } from 'react-minimal-pie-chart';
+import ReactLoading from 'react-loading';
 import '../stylesheets/Dashboard.css';
 
 class Dashboard extends Component {
@@ -152,7 +153,14 @@ class Dashboard extends Component {
                 <div className="weather-temp">{weather.main.temp} degrees</div>
                 <div className="weather-location">{weather.name}</div>
               </>
-            ) : null}
+            ) : (
+              <ReactLoading
+                type={'spin'}
+                height={40}
+                width={40}
+                className="loading"
+              />
+            )}
           </div>
           <Link
             to={{
@@ -176,7 +184,14 @@ class Dashboard extends Component {
                   />
                 </div>
               </div>
-            ) : null}
+            ) : (
+              <ReactLoading
+                type={'spin'}
+                height={40}
+                width={40}
+                className="loading"
+              />
+            )}
           </Link>
           <Link
             className="dashboard-row-item"
@@ -213,7 +228,14 @@ class Dashboard extends Component {
                   alt="img"
                   className="thumbnail-img"
                 />
-              ) : null}
+              ) : (
+                <ReactLoading
+                  type={'spin'}
+                  height={40}
+                  width={40}
+                  className="loading"
+                />
+              )}
             </div>
             <div className="photo-thumbnail-top-right">
               {photos.length > 1 ? (
@@ -222,7 +244,14 @@ class Dashboard extends Component {
                   alt="img"
                   className="thumbnail-img"
                 />
-              ) : null}
+              ) : (
+                <ReactLoading
+                  type={'spin'}
+                  height={40}
+                  width={40}
+                  className="loading"
+                />
+              )}
             </div>
             <div className="photo-thumbnail-bottom-left">
               {photos.length > 2 ? (
@@ -231,7 +260,14 @@ class Dashboard extends Component {
                   alt="img"
                   className="thumbnail-img"
                 />
-              ) : null}
+              ) : (
+                <ReactLoading
+                  type={'spin'}
+                  height={40}
+                  width={40}
+                  className="loading"
+                />
+              )}
             </div>
             <div className="photo-thumbnail-bottom-right">
               {photos.length > 3 ? (
@@ -240,7 +276,14 @@ class Dashboard extends Component {
                   alt="img"
                   className="thumbnail-img"
                 />
-              ) : null}
+              ) : (
+                <ReactLoading
+                  type={'spin'}
+                  height={40}
+                  width={40}
+                  className="loading"
+                />
+              )}
             </div>
           </Link>
           <Link
@@ -298,7 +341,14 @@ class Dashboard extends Component {
                 color="white"
                 className="pie-chart"
               />
-            ) : null}
+            ) : (
+              <ReactLoading
+                type={'spin'}
+                height={40}
+                width={40}
+                className="loading"
+              />
+            )}
           </div>
         </div>
       </div>

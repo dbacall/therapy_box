@@ -261,3 +261,8 @@
   margin: auto;
   border-radius: 2px;
 }
+
+.loading {
+  position: absolute;
+  left: 45%;
+}
