@@ -27,6 +27,10 @@ class Login extends Component {
       password: this.state.password,
     };
 
+    this.login(userData);
+  };
+
+  login = (userData) => {
     axios
       .post('http://localhost:5000/users/login', userData)
       .then((res) => {
@@ -39,6 +43,7 @@ class Login extends Component {
         this.setState({ errors: err.response.data });
       });
   };
+
   render() {
     const { errors } = this.state;
     return this.state.redirect ? (
