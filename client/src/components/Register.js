@@ -59,89 +59,83 @@ class Register extends Component {
       <Redirect to={'/login'} />
     ) : (
       <div>
-        <div className="">
-          <div className="">
-            <div className="">
-              <h1 className="login-title">Dev Challenge</h1>
+        <h1 className="login-title">Dev Challenge</h1>
+        <form noValidate onSubmit={this.onSubmit}>
+          <div className="input-row">
+            <div className="row-item">
+              <input
+                onChange={this.onChange}
+                value={this.state.name}
+                error={errors.name}
+                id="username"
+                type="text"
+                placeholder="Username"
+                className="text-input"
+              />
+              <span className="error">{errors.username}</span>
             </div>
-            <form noValidate onSubmit={this.onSubmit}>
-              <div className="input-row">
-                <div className="row-item">
-                  <input
-                    onChange={this.onChange}
-                    value={this.state.name}
-                    error={errors.name}
-                    id="username"
-                    type="text"
-                    placeholder="Username"
-                    className="text-input"
-                  />
-                  <span className="error">{errors.username}</span>
-                </div>
-                <div className="row-item">
-                  <input
-                    onChange={this.onChange}
-                    value={this.state.email}
-                    error={errors.email}
-                    id="email"
-                    type="email"
-                    className="text-input"
-                    placeholder="Email"
-                  />
-                  <span className="error">{errors.email}</span>
-                </div>
-              </div>
-              <div className="register-input-row">
-                <div className="row-item">
-                  <input
-                    onChange={this.onChange}
-                    value={this.state.password}
-                    error={errors.password}
-                    id="password"
-                    type="password"
-                    placeholder="Password"
-                    className="text-input"
-                  />
-                  <span className="error">{errors.password}</span>
-                </div>
-                <div className="row-item">
-                  <input
-                    onChange={this.onChange}
-                    value={this.state.password2}
-                    error={errors.password2}
-                    id="password2"
-                    type="password"
-                    placeholder="Confirm Password"
-                    className="text-input"
-                  />
-                  <span className="error">{errors.password2}</span>
-                </div>
-              </div>
-              <div className="profpic-upload-container">
-                <input
-                  onChange={this.onChangeImage}
-                  id="profilePicture"
-                  type="file"
-                  className="profpic-upload"
-                />
-                <label className="upload-label" for="profilePicture">
-                  Add Picture
-                </label>
-              </div>
-              <div className="register-btn-container">
-                <button type="submit" className="register-btn">
-                  Register
-                </button>
-              </div>
-            </form>
-            <p className="login-msg">
-              Already signed up?{' '}
-              <Link to="/login" className="login-link">
-                Log in
-              </Link>
-            </p>
+            <div className="row-item">
+              <input
+                onChange={this.onChange}
+                value={this.state.email}
+                error={errors.email}
+                id="email"
+                type="email"
+                className="text-input"
+                placeholder="Email"
+              />
+              <span className="error">{errors.email}</span>
+            </div>
           </div>
-        </div>
+          <div className="register-input-row">
+            <div className="row-item">
+              <input
+                onChange={this.onChange}
+                value={this.state.password}
+                error={errors.password}
+                id="password"
+                type="password"
+                placeholder="Password"
+                className="text-input"
+              />
+              <span className="error">{errors.password}</span>
+            </div>
+            <div className="row-item">
+              <input
+                onChange={this.onChange}
+                value={this.state.password2}
+                error={errors.password2}
+                id="password2"
+                type="password"
+                placeholder="Confirm Password"
+                className="text-input"
+              />
+              <span className="error">{errors.password2}</span>
+            </div>
+          </div>
+          <div className="profpic-upload-container">
+            <input
+              onChange={this.onChangeImage}
+              id="profilePicture"
+              type="file"
+              className="profpic-upload"
+            />
+            <label className="upload-label" for="profilePicture">
+              Add Picture
+            </label>
+          </div>
+          <div className="register-btn-container">
+            <button type="submit" className="register-btn">
+              Register
+            </button>
+          </div>
+        </form>
+        <p className="login-msg">
+          Already signed up?{' '}
+          <Link to="/login" className="login-link">
+            Log in
+          </Link>
+        </p>
       </div>
     );
   }
