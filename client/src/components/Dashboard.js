@@ -245,7 +245,7 @@ class Dashboard extends Component {
             <div className="photo-thumbnail-top-left">
               {photos.length > 0 ? (
                 <img
-                  src={`http://localhost:5000/${photos[0].photo}`}
+                  src={`http://localhost:5000/uploads/${photos[0].photo}`}
                   alt="img"
                   className="thumbnail-img"
                 />
@@ -254,7 +254,7 @@ class Dashboard extends Component {
             <div className="photo-thumbnail-top-right">
               {photos.length > 1 ? (
                 <img
-                  src={`http://localhost:5000/${photos[1].photo}`}
+                  src={`http://localhost:5000/uploads/${photos[1].photo}`}
                   alt="img"
                   className="thumbnail-img"
                 />
@@ -263,7 +263,7 @@ class Dashboard extends Component {
             <div className="photo-thumbnail-bottom-left">
               {photos.length > 2 ? (
                 <img
-                  src={`http://localhost:5000/${photos[2].photo}`}
+                  src={`http://localhost:5000/uploads/${photos[2].photo}`}
                   alt="img"
                   className="thumbnail-img"
                 />
@@ -272,7 +272,7 @@ class Dashboard extends Component {
             <div className="photo-thumbnail-bottom-right">
               {photos.length > 3 ? (
                 <img
-                  src={`http://localhost:5000/${photos[3].photo}`}
+                  src={`http://localhost:5000/uploads/${photos[3].photo}`}
                   alt="img"
                   className="thumbnail-img"
                 />

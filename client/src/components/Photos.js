@@ -30,7 +30,7 @@ class Photos extends Component {
             return (
               <div className="photo-frame">
                 <img
-                  src={`http://localhost:5000/${photo.photo}`}
+                  src={`http://localhost:5000/uploads/${photo.photo}`}
                   alt={`${i + 1}`}
                   height="200"
                   className="photo"

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import '../stylesheets/Tasks.css';
 
@@ -7,6 +8,7 @@ class Tasks extends Component {
     super(props);
     this.state = {
       tasks: this.props.location.state.tasks,
+      redirect: false,
     };
   }
 
@@ -40,39 +42,56 @@ class Tasks extends Component {
     const userId = this.props.location.state.user.id;
     this.state.tasks.forEach((task, i) => {
       if (task.userId === userId) {
-        const taskToUpdate = {
-          message: task.message,
-          completed: task.completed,
-        };
-        axios
-          .post(`http://localhost:5000/tasks/task/${task._id}`, taskToUpdate)
-          .then((res) => {
-            console.log('Task updated');
-          })
-          .catch((err) => {
-            console.error(err);
-          });
+        this.updateTask(task.message, task.completed, task._id);
       } else {
-        const taskToAdd = {
-          message: task.message,
-          completed: task.completed,
-          userId: userId,
-        };
-        axios
-          .post('http://localhost:5000/tasks/create', taskToAdd)
-          .then((res) => {
-            console.log('Tasks Added');
-          })
-          .catch((err) => {
-            console.error(err);
-          });
+        this.postTask(task.message, task.completed, userId);
       }
     });
   };
 
+  updateTask = (message, completed, taskId) => {
+    const taskToUpdate = {
+      message: message,
+      completed: completed,
+    };
+    axios
+      .post(`http://localhost:5000/tasks/task/${taskId}`, taskToUpdate)
+      .then((res) => {
+        console.log('Task updated');
+        this.setState({ redirect: true });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  postTask = (message, completed, userId) => {
+    const taskToAdd = {
+      message: message,
+      completed: completed,
+      userId: userId,
+    };
+    axios
+      .post('http://localhost:5000/tasks/create', taskToAdd)
+      .then((res) => {
+        console.log('Tasks Added');
+        this.setState({ redirect: true });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   render() {
     const { tasks } = this.state;
-    return (
+    return this.state.redirect ? (
+      <Redirect
+        to={{
+          pathname: '/dashboard',
+          state: { user: this.props.location.state.user },
+        }}
+      />
+    ) : (
       <div className="tasks-container">
         <h1 className="tasks-title">Tasks</h1>
         <ul className="task-list">

@@ -8,7 +8,7 @@ import '../stylesheets/Sport.css';
 function Sport(props) {
   const [data, setData] = useState(null);
   const [newTeam, setNewTeam] = useState('');
-  const [oldTeam, setOldTeam] = useState('');
+  const [oldTeam, setOldTeam] = useState(null);
   const [beatenTeams, setBeatenTeams] = useState(null);
   const [teamLoaded, setTeamLoaded] = useState(false);
   const [redirect, setRedirect] = useState(false);
@@ -24,6 +24,12 @@ function Sport(props) {
       setOldTeam(props.location.state.team[0].name);
     }
   }, [props.location.state]);
+
+  useEffect(() => {
+    if (newTeam.length > 0) {
+      findBeatenTeams(newTeam);
+    }
+  }, [newTeam]);
 
   useEffect(() => {
     if (oldTeam !== '') {
@@ -45,10 +51,10 @@ function Sport(props) {
     } else {
       findBeatenTeams(oldTeam);
     }
-    if (oldTeam === '') {
-      saveTeam();
-    } else {
+    if (oldTeam) {
       updateTeam();
+    } else {
+      saveTeam();
     }
   };
 
@@ -124,9 +130,7 @@ function Sport(props) {
             placeholder="Input your team"
             value={oldTeam ? oldTeam : newTeam}
             onChange={(e) =>
-              props.location.state.team
-                ? setOldTeam(e.target.value)
-                : setNewTeam(e.target.value)
+              oldTeam ? setOldTeam(e.target.value) : setNewTeam(e.target.value)
             }
             className="team-input"
           />
