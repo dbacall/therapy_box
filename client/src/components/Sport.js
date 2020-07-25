@@ -2,6 +2,7 @@ import React, { Component, useEffect, useState } from 'react';
 import { csv } from 'd3';
 import sportsData from '../assets/I1.csv';
 import axios from 'axios';
+import '../stylesheets/Sport.css';
 
 function Sport(props) {
   const [data, setData] = useState(null);
@@ -20,19 +21,16 @@ function Sport(props) {
     if (props.location.state.team.length > 0) {
       setOldTeam(props.location.state.team[0].name);
     }
-    // findBeatenTeams();
   }, [props.location.state]);
 
   useEffect(() => {
     if (oldTeam !== '') {
       setTeamLoaded(true);
     }
-    // findBeatenTeams();
   }, [oldTeam]);
 
   useEffect(() => {
     if (teamLoaded) {
-      console.log(data);
       findBeatenTeams(oldTeam);
       setTeamLoaded(false);
     }
@@ -101,29 +99,37 @@ function Sport(props) {
   };
 
   return (
-    <div>
-      <h1>Champions League Challenge</h1>
+    <div className="sports-container">
+      <h1 className="sports-title">Champions League Challenge</h1>
       {data ? (
         <form onSubmit={onSubmit}>
           <input
             type="text"
-            placeholder="Input your team here..."
+            placeholder="Input your team"
             value={oldTeam ? oldTeam : newTeam}
             onChange={(e) =>
               props.location.state.team
                 ? setOldTeam(e.target.value)
                 : setNewTeam(e.target.value)
             }
+            className="team-input"
           />
-          <input type="submit" value="Save your team" />
+          <input
+            type="submit"
+            value="Save your team"
+            className="team-input-btn"
+          />
         </form>
       ) : null}
       {beatenTeams ? (
-        <ul>
-          {beatenTeams.map((team) => {
-            return <li>{team}</li>;
-          })}
-        </ul>
+        <>
+          <p className="teams-intro">These teams you won against:</p>
+          <ul className="team-list">
+            {beatenTeams.map((team) => {
+              return <li className="beaten-team">{team}</li>;
+            })}
+          </ul>
+        </>
       ) : null}
     </div>
   );
