@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
+import '../stylesheets/Register.css';
 
 class Register extends Component {
   constructor() {
@@ -33,7 +34,6 @@ class Register extends Component {
     data.append('password2', this.state.password2);
     data.append('profilePicture', this.state.profilePicture);
 
-    // console.log(newUser);
     const config = {
       headers: {
         'Content-type': 'multipart/form-data',
@@ -58,67 +58,88 @@ class Register extends Component {
     return this.state.redirect ? (
       <Redirect to={'/login'} />
     ) : (
-      <div className="">
+      <div>
         <div className="">
           <div className="">
             <div className="">
-              <h1>Dev Challenge</h1>
+              <h1 className="login-title">Dev Challenge</h1>
             </div>
             <form noValidate onSubmit={this.onSubmit}>
-              <div className="">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.name}
-                  error={errors.name}
-                  id="username"
-                  type="text"
-                  placeholder="Username"
-                />
+              <div className="input-row">
+                <div className="row-item">
+                  <input
+                    onChange={this.onChange}
+                    value={this.state.name}
+                    error={errors.name}
+                    id="username"
+                    type="text"
+                    placeholder="Username"
+                    className="text-input"
+                  />
+                  <span className="error">{errors.username}</span>
+                </div>
+                <div className="row-item">
+                  <input
+                    onChange={this.onChange}
+                    value={this.state.email}
+                    error={errors.email}
+                    id="email"
+                    type="email"
+                    className="text-input"
+                    placeholder="Email"
+                  />
+                  <span className="error">{errors.email}</span>
+                </div>
               </div>
-              <div className="">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.email}
-                  error={errors.email}
-                  id="email"
-                  type="email"
-                  placeholder="Email"
-                />
+              <div className="register-input-row">
+                <div className="row-item">
+                  <input
+                    onChange={this.onChange}
+                    value={this.state.password}
+                    error={errors.password}
+                    id="password"
+                    type="password"
+                    placeholder="Password"
+                    className="text-input"
+                  />
+                  <span className="error">{errors.password}</span>
+                </div>
+                <div className="row-item">
+                  <input
+                    onChange={this.onChange}
+                    value={this.state.password2}
+                    error={errors.password2}
+                    id="password2"
+                    type="password"
+                    placeholder="Confirm Password"
+                    className="text-input"
+                  />
+                  <span className="error">{errors.password2}</span>
+                </div>
               </div>
-              <div className="">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.password}
-                  error={errors.password}
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                />
-              </div>
-              <div className="">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.password2}
-                  error={errors.password2}
-                  id="password2"
-                  type="password"
-                  placeholder="Confirm Password"
-                />
-              </div>
-              <div className="">
+              <div className="profpic-upload-container">
                 <input
                   onChange={this.onChangeImage}
-                  // value={this.state.profilePicture}
                   id="profilePicture"
                   type="file"
+                  className="profpic-upload"
                 />
+                <label className="upload-label" for="profilePicture">
+                  Add Picture
+                </label>
               </div>
-              <div className="">
-                <button type="submit" className="">
+              <div className="register-btn-container">
+                <button type="submit" className="register-btn">
                   Register
                 </button>
               </div>
             </form>
+            <p className="login-msg">
+              Already signed up?{' '}
+              <Link to="/login" className="login-link">
+                Log in
+              </Link>
+            </p>
           </div>
         </div>
       </div>

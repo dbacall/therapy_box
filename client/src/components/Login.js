@@ -51,7 +51,7 @@ class Login extends Component {
         }}
       />
     ) : (
-      <div className="container">
+      <div>
         <h1 className="login-title">Dev Challenge</h1>
         <form noValidate onSubmit={this.onSubmit}>
           <div className="input-row">
@@ -65,6 +65,8 @@ class Login extends Component {
                 placeholder="Username"
                 className="text-input"
               />
+              <span className="error">{errors.username}</span>
+              <span className="error">{errors.usernotfound}</span>
             </div>
             <div className="row-item">
               <input
@@ -76,6 +78,8 @@ class Login extends Component {
                 placeholder="Password"
                 className="text-input"
               />
+              <span className="error">{errors.password}</span>
+              <span className="error">{errors.passwordincorrect}</span>
             </div>
           </div>
           <div className="login-btn-container">

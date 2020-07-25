@@ -1,47 +1,46 @@
-.login-title {
+.register-input-row {
   text-align: center;
-  color: white;
-  font-size: 80px;
-}
-
-.input-row {
+  margin: 5% auto;
   display: flex;
   justify-content: space-between;
   width: 50%;
-  margin: auto;
 }
 
-.row-item {
-  width: 35%;
+.profpic-upload-container {
+  text-align: center;
+  margin-top: 10%;
 }
 
-.text-input {
-  background-color: transparent;
+.profpic-upload {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.upload-label {
+  border: solid 2px yellow;
+  background-color: rgba(0, 0, 0, 0.2);
   color: white;
-  border: none;
-  border-bottom: solid 2px white;
-  width: 100%;
-  padding-top: 5%;
+  padding: 5% 7%;
   font-size: 20px;
+  border-radius: 10px;
 }
 
-.text-input::placeholder {
-  color: white;
-  font-size: 20px;
+.upload-label:hover {
+  cursor: pointer;
 }
 
-.text-input:focus {
-  outline: none;
-}
-
-.login-btn-container {
+.register-btn-container {
   text-align: center;
   position: absolute;
-  bottom: 20%;
+  bottom: 11%;
   width: 100%;
 }
 
-.login-btn {
+.register-btn {
   color: black;
   font-size: 20px;
   background-color: yellow;
@@ -49,34 +48,30 @@
   border-radius: 30px;
 }
 
-.login-btn:hover {
+.register-btn:hover {
   color: white;
   cursor: pointer;
   background-color: rgb(141, 153, 30);
 }
 
-.login-btn:focus {
+.register-btn:focus {
   outline: none;
 }
 
-.register-msg {
+.login-msg {
   color: white;
   position: absolute;
-  bottom: 10%;
+  bottom: 5%;
   width: 100%;
   font-size: 20px;
   text-align: center;
 }
 
-.register-link {
+.login-link {
   text-decoration: none;
   color: yellow;
 }
 
-.register-link:hover {
+.login-link:hover {
   color: blue;
-}
-
-.error {
-  color: red;
 }
