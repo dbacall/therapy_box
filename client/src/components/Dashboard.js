@@ -23,6 +23,21 @@ class Dashboard extends Component {
 
   componentDidMount() {
     const userId = this.props.location.state.user.id;
+
+    this.getTasks(userId);
+
+    this.getPhotos(userId);
+
+    this.getWeather();
+
+    this.getNews();
+
+    this.getClothes();
+
+    this.getTeam(userId);
+  }
+
+  getTasks = (userId) => {
     axios
       .get(`http://localhost:5000/tasks/${userId}`)
       .then((res) => {
@@ -31,7 +46,9 @@ class Dashboard extends Component {
       .catch((err) => {
         console.error(err);
       });
+  };
 
+  getPhotos = (userId) => {
     axios
       .get(`http://localhost:5000/photos/${userId}`)
       .then((res) => {
@@ -40,9 +57,9 @@ class Dashboard extends Component {
       .catch((err) => {
         console.error(err);
       });
+  };
 
-    this.getWeather();
-
+  getNews = () => {
     axios
       .get(
         'https://api.rss2json.com/v1/api.json?rss_url=http://feeds.skynews.com/feeds/rss/home.xml'
@@ -52,7 +69,9 @@ class Dashboard extends Component {
           news: res.data.items,
         });
       });
+  };
 
+  getClothes = () => {
     axios
       .get(
         'https://cors-anywhere.herokuapp.com/https://therapy-box.co.uk/hackathon/clothing-api.php?username=swapnil'
@@ -94,16 +113,11 @@ class Dashboard extends Component {
           ],
         });
       });
+  };
 
-    axios
-      .get(`http://localhost:5000/team/${userId}`)
-      .then((res) => {
-        this.setState({ team: res.data });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }
+  getClothesNumber = (clothes, itemOfClothing) => {
+    return clothes.filter((item) => item.clothe === itemOfClothing).length;
+  };
 
   getWeather = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -119,8 +133,15 @@ class Dashboard extends Component {
     });
   };
 
-  getClothesNumber = (clothes, itemOfClothing) => {
-    return clothes.filter((item) => item.clothe === itemOfClothing).length;
+  getTeam = (userId) => {
+    axios
+      .get(`http://localhost:5000/team/${userId}`)
+      .then((res) => {
+        this.setState({ team: res.data });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   render() {
