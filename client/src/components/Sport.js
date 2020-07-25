@@ -130,7 +130,9 @@ function Sport(props) {
             placeholder="Input your team"
             value={oldTeam ? oldTeam : newTeam}
             onChange={(e) =>
-              oldTeam ? setOldTeam(e.target.value) : setNewTeam(e.target.value)
+              oldTeam || oldTeam === ''
+                ? setOldTeam(e.target.value)
+                : setNewTeam(e.target.value)
             }
             className="team-input"
           />

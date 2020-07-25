@@ -4,7 +4,7 @@ const fs = require('fs');
 
 var PhotoController = {
   create: (req, res) => {
-    fs.access('../uploads', (err) => {
+    fs.access('./uploads', (err) => {
       if (err) {
         fs.mkdirSync('./uploads/');
       }
