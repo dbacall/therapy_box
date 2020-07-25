@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
+import '../stylesheets/Login.css';
 
 class Login extends Component {
   constructor() {
@@ -51,43 +52,44 @@ class Login extends Component {
       />
     ) : (
       <div className="container">
-        <div className="">
-          <div className="">
-            <div className="col s12" style={{ paddingLeft: '11.250px' }}>
-              <h1>Dev Challenge</h1>
-              <p className="">
-                New to the challenge? <Link to="/register">Sign up</Link>
-              </p>
+        <h1 className="login-title">Dev Challenge</h1>
+        <form noValidate onSubmit={this.onSubmit}>
+          <div className="input-row">
+            <div className="row-item">
+              <input
+                onChange={this.onChange}
+                value={this.state.username}
+                error={errors.username}
+                id="username"
+                type="username"
+                placeholder="Username"
+                className="text-input"
+              />
             </div>
-            <form noValidate onSubmit={this.onSubmit}>
-              <div className="">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.username}
-                  error={errors.username}
-                  id="username"
-                  type="username"
-                  placeholder="Username"
-                />
-              </div>
-              <div className="">
-                <input
-                  onChange={this.onChange}
-                  value={this.state.password}
-                  error={errors.password}
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                />
-              </div>
-              <div className="">
-                <button type="submit" className="">
-                  Login
-                </button>
-              </div>
-            </form>
+            <div className="row-item">
+              <input
+                onChange={this.onChange}
+                value={this.state.password}
+                error={errors.password}
+                id="password"
+                type="password"
+                placeholder="Password"
+                className="text-input"
+              />
+            </div>
           </div>
-        </div>
+          <div className="login-btn-container">
+            <button type="submit" className="login-btn">
+              Login
+            </button>
+          </div>
+        </form>
+        <p className="register-msg">
+          New to the challenge?{' '}
+          <Link to="/register" className="register-link">
+            Sign up
+          </Link>
+        </p>
       </div>
     );
   }
