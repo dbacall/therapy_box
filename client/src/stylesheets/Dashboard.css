@@ -23,6 +23,34 @@
   border-radius: 10px;
 }
 
+.logout-btn-container {
+  /* position: absolute;
+  top: 10%;
+  right: 5%; */
+  width: 100%;
+}
+
+.logout-btn {
+  position: absolute;
+  right: 2%;
+  top: 3%;
+  color: black;
+  font-size: 20px;
+  background-color: yellow;
+  padding: 0.7% 3%;
+  border-radius: 30px;
+}
+
+.logout-btn:hover {
+  color: white;
+  cursor: pointer;
+  background-color: rgb(141, 153, 30);
+}
+
+.logout-btn:focus {
+  outline: none;
+}
+
 .dashboard-row {
   position: relative;
   display: flex;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import clouds from '../assets/Clouds_icon.png';
 import sun from '../assets/Sun_icon.png';
@@ -18,6 +18,7 @@ class Dashboard extends Component {
       news: null,
       clothesData: null,
       team: [],
+      redirect: false,
     };
   }
 
@@ -144,9 +145,24 @@ class Dashboard extends Component {
       });
   };
 
+  logOut = () => {
+    localStorage.removeItem('jwtToken');
+    this.setState({ redirect: true });
+  };
+
   render() {
-    const { weather, news, clothesData, team, tasks, photos } = this.state;
-    return (
+    const {
+      weather,
+      news,
+      clothesData,
+      team,
+      tasks,
+      photos,
+      redirect,
+    } = this.state;
+    return redirect ? (
+      <Redirect to={'/login'} />
+    ) : (
       <div>
         <h1 className="dashboard-title">
           Good day {this.props.location.state.user.username}
@@ -157,6 +173,11 @@ class Dashboard extends Component {
             alt="Profile Pic"
             className="profpic"
           />
+        </div>
+        <div className="logout-btn-container">
+          <button type="submit" className="logout-btn" onClick={this.logOut}>
+            Logout
+          </button>
         </div>
         <div className="dashboard-row">
           <div className="dashboard-row-item">
@@ -225,9 +246,9 @@ class Dashboard extends Component {
             }}
           >
             <h4 className="row-item-banner">Sport</h4>
-            <p className="team-name">
+            <div className="team-name">
               {team.length !== 0 ? <h3>{team[0].name}</h3> : null}
-            </p>
+            </div>
           </Link>
         </div>
         <div className="dashboard-row-2">
@@ -293,7 +314,7 @@ class Dashboard extends Component {
             <ul className="dashboard-task-list">
               {tasks.slice(0, 3).map((task, i) => {
                 return (
-                  <li>
+                  <li key={i}>
                     <input
                       type="text"
                       id={i}
@@ -311,7 +332,7 @@ class Dashboard extends Component {
                         disabled
                         className="dashboard-task-checkbox"
                       />
-                      <span class="dashboard-checkmark"></span>
+                      <span className="dashboard-checkmark"></span>
                     </label>
                   </li>
                 );

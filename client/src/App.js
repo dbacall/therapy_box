@@ -10,6 +10,7 @@ import Photos from './components/Photos';
 import AddPhoto from './components/AddPhoto';
 import News from './components/News';
 import Sport from './components/Sport';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
@@ -17,12 +18,12 @@ function App() {
       <div className="App">
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/dashboard" component={Dashboard} />
-        <Route exact path="/tasks" component={Tasks} />
-        <Route exact path="/photos" component={Photos} />
-        <Route exact path="/photos/add" component={AddPhoto} />
-        <Route exact path="/news" component={News} />
-        <Route exact path="/sport" component={Sport} />
+        <PrivateRoute exact path="/" component={Dashboard} />
+        <PrivateRoute exact path="/tasks" component={Tasks} />
+        <PrivateRoute exact path="/photos" component={Photos} />
+        <PrivateRoute exact path="/photos/add" component={AddPhoto} />
+        <PrivateRoute exact path="/news" component={News} />
+        <PrivateRoute exact path="/sport" component={Sport} />
       </div>
     </Router>
   );

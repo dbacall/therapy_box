@@ -87,7 +87,7 @@ class Tasks extends Component {
     return this.state.redirect ? (
       <Redirect
         to={{
-          pathname: '/dashboard',
+          pathname: '/',
           state: { user: this.props.location.state.user },
         }}
       />

@@ -35,8 +35,9 @@ class Login extends Component {
       .post('http://localhost:5000/users/login', userData)
       .then((res) => {
         const { token } = res.data;
-        const decoded = jwt_decode(token);
-        this.setState({ user: decoded, redirect: true });
+        const user = jwt_decode(token);
+        localStorage.setItem('jwtToken', token);
+        this.setState({ user: user, redirect: true });
       })
       .catch((err) => {
         console.error(err);
@@ -49,7 +50,7 @@ class Login extends Component {
     return this.state.redirect ? (
       <Redirect
         to={{
-          pathname: '/dashboard',
+          pathname: '/',
           state: { user: this.state.user },
         }}
       />

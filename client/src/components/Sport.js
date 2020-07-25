@@ -116,7 +116,7 @@ function Sport(props) {
   return redirect ? (
     <Redirect
       to={{
-        pathname: '/dashboard',
+        pathname: '/',
         state: { user: props.location.state.user },
       }}
     />
