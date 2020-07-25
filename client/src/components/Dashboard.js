@@ -168,11 +168,13 @@ class Dashboard extends Component {
             {news ? (
               <div>
                 <h3 className="dashboard-news-headline">{news[0].title}</h3>
-                <img
-                  src={news[0].thumbnail}
-                  alt="News"
-                  className="dashboard-news-img"
-                />
+                <div className="dashboard-news-img-container">
+                  <img
+                    src={news[0].thumbnail}
+                    alt="News"
+                    className="dashboard-news-img"
+                  />
+                </div>
               </div>
             ) : null}
           </Link>
