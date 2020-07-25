@@ -228,14 +228,7 @@ class Dashboard extends Component {
                   alt="img"
                   className="thumbnail-img"
                 />
-              ) : (
-                <ReactLoading
-                  type={'spin'}
-                  height={40}
-                  width={40}
-                  className="loading"
-                />
-              )}
+              ) : null}
             </div>
             <div className="photo-thumbnail-top-right">
               {photos.length > 1 ? (
@@ -244,14 +237,7 @@ class Dashboard extends Component {
                   alt="img"
                   className="thumbnail-img"
                 />
-              ) : (
-                <ReactLoading
-                  type={'spin'}
-                  height={40}
-                  width={40}
-                  className="loading"
-                />
-              )}
+              ) : null}
             </div>
             <div className="photo-thumbnail-bottom-left">
               {photos.length > 2 ? (
@@ -260,14 +246,7 @@ class Dashboard extends Component {
                   alt="img"
                   className="thumbnail-img"
                 />
-              ) : (
-                <ReactLoading
-                  type={'spin'}
-                  height={40}
-                  width={40}
-                  className="loading"
-                />
-              )}
+              ) : null}
             </div>
             <div className="photo-thumbnail-bottom-right">
               {photos.length > 3 ? (
@@ -276,14 +255,7 @@ class Dashboard extends Component {
                   alt="img"
                   className="thumbnail-img"
                 />
-              ) : (
-                <ReactLoading
-                  type={'spin'}
-                  height={40}
-                  width={40}
-                  className="loading"
-                />
-              )}
+              ) : null}
             </div>
           </Link>
           <Link

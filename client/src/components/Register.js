@@ -34,6 +34,10 @@ class Register extends Component {
     data.append('password2', this.state.password2);
     data.append('profilePicture', this.state.profilePicture);
 
+    this.register(data);
+  };
+
+  register = (data) => {
     const config = {
       headers: {
         'Content-type': 'multipart/form-data',
@@ -43,14 +47,12 @@ class Register extends Component {
     axios
       .post('http://localhost:5000/users/register', data, config)
       .then((res) => {
-        console.log(res);
         this.setState({ redirect: true });
       })
       .catch((err) => {
         console.error(err);
         this.setState({ errors: err.response.data });
       });
-    console.log(this.state);
   };
 
   render() {

@@ -38,8 +38,6 @@ class Login extends Component {
         console.error(err);
         this.setState({ errors: err.response.data });
       });
-
-    console.log(userData);
   };
   render() {
     const { errors } = this.state;
