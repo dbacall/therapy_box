@@ -1,4 +1,5 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Redirect } from 'react-router-dom';
 import { csv } from 'd3';
 import sportsData from '../assets/I1.csv';
 import axios from 'axios';
@@ -10,6 +11,7 @@ function Sport(props) {
   const [oldTeam, setOldTeam] = useState('');
   const [beatenTeams, setBeatenTeams] = useState(null);
   const [teamLoaded, setTeamLoaded] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     csv(sportsData).then((res) => {
@@ -43,7 +45,11 @@ function Sport(props) {
     } else {
       findBeatenTeams(oldTeam);
     }
-    saveTeam();
+    if (oldTeam === '') {
+      saveTeam();
+    } else {
+      updateTeam();
+    }
   };
 
   const findBeatenTeams = (team) => {
@@ -67,38 +73,48 @@ function Sport(props) {
 
   const saveTeam = () => {
     const userId = props.location.state.user.id;
-    if (oldTeam === '') {
-      const team = {
-        name: newTeam,
-        userId: userId,
-      };
-      axios
-        .post('http://localhost:5000/team/create', team)
-        .then((res) => {
-          console.log('Team Added');
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else {
-      const teamToUpdate = {
-        name: oldTeam,
-      };
-      axios
-        .post(
-          `http://localhost:5000/team/${props.location.state.team[0]._id}`,
-          teamToUpdate
-        )
-        .then((res) => {
-          console.log('Team updated');
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }
+
+    const team = {
+      name: newTeam,
+      userId: userId,
+    };
+    axios
+      .post('http://localhost:5000/team/create', team)
+      .then((res) => {
+        console.log('Team Added');
+        setRedirect(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
-  return (
+  const updateTeam = () => {
+    const teamToUpdate = {
+      name: oldTeam,
+    };
+    axios
+      .post(
+        `http://localhost:5000/team/${props.location.state.team[0]._id}`,
+        teamToUpdate
+      )
+      .then((res) => {
+        console.log('Team updated');
+        setRedirect(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
+  return redirect ? (
+    <Redirect
+      to={{
+        pathname: '/dashboard',
+        state: { user: props.location.state.user },
+      }}
+    />
+  ) : (
     <div className="sports-container">
       <h1 className="sports-title">Champions League Challenge</h1>
       {data ? (

@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import '../stylesheets/News.css';
 
 class News extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
   render() {
     const { news } = this.props.location.state;
     return (
