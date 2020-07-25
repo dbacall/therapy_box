@@ -1,0 +1,57 @@
+.add-photo-container {
+  text-align: center;
+}
+
+.add-photo-title {
+  color: white;
+  font-size: 60px;
+  margin-top: 1.5%;
+}
+
+.photo-upload-container {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.photo-upload {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.photo-upload-label {
+  border: solid 2px yellow;
+  background-color: rgba(0, 0, 0, 0.2);
+  color: white;
+  padding: 5% 7%;
+  font-size: 20px;
+  border-radius: 10px;
+}
+
+.photo-upload-label:hover {
+  cursor: pointer;
+}
+
+.add-photo-btn {
+  /* position: absolute; */
+  /* bottom: 6%; */
+  /* right: 20%; */
+  color: black;
+  font-size: 20px;
+  background-color: yellow;
+  padding: 0.7% 4%;
+  border-radius: 30px;
+  margin-top: 10%;
+}
+
+.add-photo-btn:hover {
+  color: rgb(141, 153, 30);
+  cursor: pointer;
+}
+
+.add-photo-btn:focus {
+  outline: none;
+}

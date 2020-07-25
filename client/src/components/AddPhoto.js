@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import '../stylesheets/AddPhoto.css';
 
 class AddPhoto extends Component {
   constructor(props) {
@@ -50,15 +51,22 @@ class AddPhoto extends Component {
         }}
       />
     ) : (
-      <div>
-        <h1>Add Photo</h1>
-        <input
-          onChange={this.onChangeImage}
-          // value={this.state.profilePicture}
-          id="profilePicture"
-          type="file"
-        />
-        <button onClick={this.onSubmit}>Add Photo</button>
+      <div className="add-photo-container">
+        <h1 className="add-photo-title">Add Photo</h1>
+        <div className="photo-upload-container">
+          <input
+            onChange={this.onChangeImage}
+            id="photo"
+            type="file"
+            className="photo-upload"
+          />
+          <label className="photo-upload-label" for="photo">
+            Choose a photo
+          </label>
+        </div>
+        <button onClick={this.onSubmit} className="add-photo-btn">
+          Add Photo
+        </button>
       </div>
     );
   }

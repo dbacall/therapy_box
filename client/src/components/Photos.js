@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import '../stylesheets/Photos.css';
 
 class Photos extends Component {
   constructor(props) {
@@ -11,27 +12,33 @@ class Photos extends Component {
   render() {
     const { photos } = this.state;
     return (
-      <div>
-        <h1>Photos</h1>
-        <Link
-          to={{
-            pathname: '/photos/add',
-            state: {
-              user: this.props.location.state.user,
-            },
-          }}
-        >
-          +
-        </Link>
-        {photos.map((photo, i) => {
-          return (
-            <img
-              src={`http://localhost:5000/${photo.photo}`}
-              alt={`${i + 1}`}
-              height="200"
-            />
-          );
-        })}
+      <div className="photos-container">
+        <h1 className="photos-title">Photos</h1>
+        <div className="gallery">
+          <Link
+            to={{
+              pathname: '/photos/add',
+              state: {
+                user: this.props.location.state.user,
+              },
+            }}
+            className="add-photo-link"
+          >
+            +
+          </Link>
+          {photos.map((photo, i) => {
+            return (
+              <div className="photo-frame">
+                <img
+                  src={`http://localhost:5000/${photo.photo}`}
+                  alt={`${i + 1}`}
+                  height="200"
+                  className="photo"
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }

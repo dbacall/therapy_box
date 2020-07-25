@@ -1,0 +1,50 @@
+.photos-container {
+  text-align: center;
+}
+
+.photos-title {
+  color: white;
+  font-size: 60px;
+  margin-top: 1.5%;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 50%);
+  grid-gap: 30px;
+  margin-left: 10%;
+}
+
+.photo-frame {
+  border: solid 2px yellow;
+  border-radius: 4px;
+  width: 90%;
+  height: 90%;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.photo {
+  height: 100%;
+  width: 100%;
+  display: block;
+  margin: auto;
+  border-radius: 2px;
+}
+
+.add-photo-link {
+  text-decoration: none;
+  border: solid 2px yellow;
+  border-radius: 4px;
+  width: 90%;
+  height: 90%;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: yellow;
+  font-size: 300px;
+  line-height: 200px;
+}
+
+.add-photo-link:hover {
+  color: rgb(141, 153, 30);
+}
