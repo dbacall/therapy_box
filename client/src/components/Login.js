@@ -3,6 +3,9 @@ import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import jwt_decode from 'jwt-decode';
 import '../stylesheets/Login.css';
+import { config } from '../constants';
+
+const url = config.url.API_URL;
 
 class Login extends Component {
   constructor() {
@@ -32,7 +35,7 @@ class Login extends Component {
 
   login = (userData) => {
     axios
-      .post('http://localhost:5000/users/login', userData)
+      .post(`${url}/users/login`, userData)
       .then((res) => {
         const { token } = res.data;
         const user = jwt_decode(token);

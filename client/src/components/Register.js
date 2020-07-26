@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import '../stylesheets/Register.css';
+import { config } from '../constants';
+
+const url = config.url.API_URL;
 
 class Register extends Component {
   constructor() {
@@ -45,7 +48,7 @@ class Register extends Component {
     };
 
     axios
-      .post('http://localhost:5000/users/register', data, config)
+      .post(`${url}/users/register`, data, config)
       .then((res) => {
         this.setState({ redirect: true });
       })

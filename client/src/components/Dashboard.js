@@ -7,6 +7,9 @@ import rain from '../assets/Rain_icon.png';
 import { PieChart } from 'react-minimal-pie-chart';
 import ReactLoading from 'react-loading';
 import '../stylesheets/Dashboard.css';
+import { config } from '../constants';
+
+const url = config.url.API_URL;
 
 class Dashboard extends Component {
   constructor(props) {
@@ -40,7 +43,7 @@ class Dashboard extends Component {
 
   getTasks = (userId) => {
     axios
-      .get(`http://localhost:5000/tasks/${userId}`)
+      .get(`${url}/tasks/${userId}`)
       .then((res) => {
         this.setState({ tasks: res.data });
       })
@@ -51,7 +54,7 @@ class Dashboard extends Component {
 
   getPhotos = (userId) => {
     axios
-      .get(`http://localhost:5000/photos/${userId}`)
+      .get(`${url}/photos/${userId}`)
       .then((res) => {
         this.setState({ photos: res.data });
       })
@@ -136,7 +139,7 @@ class Dashboard extends Component {
 
   getTeam = (userId) => {
     axios
-      .get(`http://localhost:5000/team/${userId}`)
+      .get(`${url}/team/${userId}`)
       .then((res) => {
         this.setState({ team: res.data });
       })
@@ -169,7 +172,7 @@ class Dashboard extends Component {
         </h1>
         <div className="profpic-container">
           <img
-            src={`http://localhost:5000/${this.props.location.state.user.profilePicture}`}
+            src={`${url}/${this.props.location.state.user.profilePicture}`}
             alt="Profile Pic"
             className="profpic"
           />
@@ -266,7 +269,7 @@ class Dashboard extends Component {
             <div className="photo-thumbnail-top-left">
               {photos.length > 0 ? (
                 <img
-                  src={`http://localhost:5000/uploads/${photos[0].photo}`}
+                  src={`${url}/uploads/${photos[0].photo}`}
                   alt="img"
                   className="thumbnail-img"
                 />
@@ -275,7 +278,7 @@ class Dashboard extends Component {
             <div className="photo-thumbnail-top-right">
               {photos.length > 1 ? (
                 <img
-                  src={`http://localhost:5000/uploads/${photos[1].photo}`}
+                  src={`${url}/uploads/${photos[1].photo}`}
                   alt="img"
                   className="thumbnail-img"
                 />
@@ -284,7 +287,7 @@ class Dashboard extends Component {
             <div className="photo-thumbnail-bottom-left">
               {photos.length > 2 ? (
                 <img
-                  src={`http://localhost:5000/uploads/${photos[2].photo}`}
+                  src={`${url}/uploads/${photos[2].photo}`}
                   alt="img"
                   className="thumbnail-img"
                 />
@@ -293,7 +296,7 @@ class Dashboard extends Component {
             <div className="photo-thumbnail-bottom-right">
               {photos.length > 3 ? (
                 <img
-                  src={`http://localhost:5000/uploads/${photos[3].photo}`}
+                  src={`${url}/uploads/${photos[3].photo}`}
                   alt="img"
                   className="thumbnail-img"
                 />

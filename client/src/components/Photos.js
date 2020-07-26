@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../stylesheets/Photos.css';
 import plus from '../assets/Plus_button.png';
+import { config } from '../constants';
+
+const url = config.url.API_URL;
 
 class Photos extends Component {
   constructor(props) {
@@ -31,7 +34,7 @@ class Photos extends Component {
             return (
               <div className="photo-frame" key={'photo' + i}>
                 <img
-                  src={`http://localhost:5000/uploads/${photo.photo}`}
+                  src={`${url}/uploads/${photo.photo}`}
                   alt={`${i + 1}`}
                   height="200"
                   className="photo"

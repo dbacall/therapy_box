@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import '../stylesheets/AddPhoto.css';
+import { config } from '../constants';
+
+const url = config.url.API_URL;
 
 class AddPhoto extends Component {
   constructor(props) {
@@ -29,7 +32,7 @@ class AddPhoto extends Component {
     };
 
     axios
-      .post('http://localhost:5000/photos/create', data, config)
+      .post(`${url}/photos/create`, data, config)
       .then((res) => {
         console.log(res);
         this.setState({ redirect: true });

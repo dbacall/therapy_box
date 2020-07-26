@@ -4,6 +4,9 @@ import { csv } from 'd3';
 import sportsData from '../assets/I1.csv';
 import axios from 'axios';
 import '../stylesheets/Sport.css';
+import { config } from '../constants';
+
+const url = config.url.API_URL;
 
 function Sport(props) {
   const [data, setData] = useState(null);
@@ -85,7 +88,7 @@ function Sport(props) {
       userId: userId,
     };
     axios
-      .post('http://localhost:5000/team/create', team)
+      .post(`${url}/team/create`, team)
       .then((res) => {
         console.log('Team Added');
         setRedirect(true);
@@ -100,10 +103,7 @@ function Sport(props) {
       name: oldTeam,
     };
     axios
-      .post(
-        `http://localhost:5000/team/${props.location.state.team[0]._id}`,
-        teamToUpdate
-      )
+      .post(`${url}/team/${props.location.state.team[0]._id}`, teamToUpdate)
       .then((res) => {
         console.log('Team updated');
         setRedirect(true);
