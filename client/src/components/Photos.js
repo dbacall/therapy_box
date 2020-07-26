@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import '../stylesheets/Photos.css';
+import plus from '../assets/Plus_button.png';
 
 class Photos extends Component {
   constructor(props) {
@@ -24,11 +25,11 @@ class Photos extends Component {
             }}
             className="add-photo-link"
           >
-            +
+            <img src={plus} className="plus-icon" alt="plus" />
           </Link>
           {photos.map((photo, i) => {
             return (
-              <div className="photo-frame">
+              <div className="photo-frame" key={'photo' + i}>
                 <img
                   src={`http://localhost:5000/uploads/${photo.photo}`}
                   alt={`${i + 1}`}

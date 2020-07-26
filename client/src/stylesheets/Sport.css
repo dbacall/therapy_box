@@ -4,9 +4,10 @@
 
 .sports-title {
   color: white;
-  margin-left: 2%;
   font-size: 60px;
-  text-align: left;
+  position: absolute;
+  top: 0.5%;
+  left: 2%;
 }
 
 .team-input {
@@ -14,15 +15,17 @@
   color: white;
   border: none;
   width: 20%;
-  padding-top: 5%;
+  padding: 5% 2% 0 2%;
   font-size: 40px;
+  border-bottom: solid 2px white;
+  margin: 5% 2% 0 0;
 }
 
 .team-input-btn {
   color: black;
   font-size: 20px;
   background-color: yellow;
-  padding: 0.7% 4%;
+  padding: 0.7% 3%;
   border-radius: 30px;
 }
 
@@ -47,13 +50,6 @@
 
 .team-list {
   list-style-type: none;
-}
-
-.teams-intro {
-  text-align: left;
-  color: white;
-  font-size: 20px;
-  margin-left: 10%;
 }
 
 .beaten-team {

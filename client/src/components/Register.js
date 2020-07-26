@@ -61,7 +61,7 @@ class Register extends Component {
       <Redirect to={'/login'} />
     ) : (
       <div>
-        <h1 className="login-title">Dev Challenge</h1>
+        <h1 className="login-title">Hackathon</h1>
         <form noValidate onSubmit={this.onSubmit}>
           <div className="input-row">
             <div className="row-item">

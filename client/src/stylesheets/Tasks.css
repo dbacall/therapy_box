@@ -14,10 +14,6 @@
   width: 100%;
 }
 
-.task {
-  /* margin-left: 20%; */
-}
-
 .task-input {
   background-color: transparent;
   color: white;
@@ -96,10 +92,8 @@
 
 .add-task-btn {
   position: absolute;
-  bottom: 0;
+  bottom: 4%;
   left: 25%;
-  color: yellow;
-  font-size: 150px;
   border: none;
   background-color: transparent;
 }

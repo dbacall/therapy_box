@@ -122,12 +122,12 @@ function Sport(props) {
     />
   ) : (
     <div className="sports-container">
-      <h1 className="sports-title">Champions League Challenge</h1>
+      <h1 className="sports-title">Sport</h1>
       {data ? (
         <form onSubmit={onSubmit}>
           <input
             type="text"
-            placeholder="Input your team"
+            placeholder="Input team name"
             value={oldTeam ? oldTeam : newTeam}
             onChange={(e) =>
               oldTeam || oldTeam === ''
@@ -144,14 +144,11 @@ function Sport(props) {
         </form>
       ) : null}
       {beatenTeams ? (
-        <>
-          <p className="teams-intro">These teams you won against:</p>
-          <ul className="team-list">
-            {beatenTeams.map((team) => {
-              return <li className="beaten-team">{team}</li>;
-            })}
-          </ul>
-        </>
+        <ul className="team-list">
+          {beatenTeams.map((team) => {
+            return <li className="beaten-team">{team}</li>;
+          })}
+        </ul>
       ) : null}
     </div>
   );

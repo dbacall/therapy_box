@@ -174,7 +174,7 @@ class Dashboard extends Component {
             className="profpic"
           />
         </div>
-        <div className="logout-btn-container">
+        <div>
           <button type="submit" className="logout-btn" onClick={this.logOut}>
             Logout
           </button>

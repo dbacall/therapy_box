@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import '../stylesheets/Tasks.css';
+import plus from '../assets/Plus_button_small.png';
 
 class Tasks extends Component {
   constructor(props) {
@@ -120,7 +121,7 @@ class Tasks extends Component {
           })}
         </ul>
         <button onClick={this.addTask} className="add-task-btn">
-          +
+          <img src={plus} className="plus-icon" alt="plus" />
         </button>
         <button onClick={this.saveTasks} className="save-task-btn">
           Save
