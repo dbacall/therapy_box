@@ -9,6 +9,8 @@
     "axios": "^0.19.2",
     "d3": "^5.16.0",
     "dotenv": "^8.2.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.2",
     "jwt-decode": "^2.2.0",
     "papaparse": "^5.2.0",
     "react": "^16.13.1",

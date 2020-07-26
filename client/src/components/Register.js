@@ -70,8 +70,7 @@ class Register extends Component {
             <div className="row-item">
               <input
                 onChange={this.onChange}
-                value={this.state.name}
-                error={errors.name}
+                value={this.state.username}
                 id="username"
                 type="text"
                 placeholder="Username"
@@ -83,7 +82,6 @@ class Register extends Component {
               <input
                 onChange={this.onChange}
                 value={this.state.email}
-                error={errors.email}
                 id="email"
                 type="email"
                 className="text-input"
@@ -97,7 +95,6 @@ class Register extends Component {
               <input
                 onChange={this.onChange}
                 value={this.state.password}
-                error={errors.password}
                 id="password"
                 type="password"
                 placeholder="Password"
@@ -109,7 +106,6 @@ class Register extends Component {
               <input
                 onChange={this.onChange}
                 value={this.state.password2}
-                error={errors.password2}
                 id="password2"
                 type="password"
                 placeholder="Confirm Password"
