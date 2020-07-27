@@ -18,12 +18,14 @@ function App() {
       <div className="App">
         <Route exact path="/login" component={Login} />
         <Route exact path="/register" component={Register} />
-        <PrivateRoute exact path="/" component={Dashboard} />
-        <PrivateRoute exact path="/tasks" component={Tasks} />
-        <PrivateRoute exact path="/photos" component={Photos} />
-        <PrivateRoute exact path="/photos/add" component={AddPhoto} />
-        <PrivateRoute exact path="/news" component={News} />
-        <PrivateRoute exact path="/sport" component={Sport} />
+        <Switch>
+          <PrivateRoute exact path="/" component={Dashboard} />
+          <PrivateRoute exact path="/tasks" component={Tasks} />
+          <PrivateRoute exact path="/photos" component={Photos} />
+          <PrivateRoute exact path="/photos/add" component={AddPhoto} />
+          <PrivateRoute exact path="/news" component={News} />
+          <PrivateRoute exact path="/sport" component={Sport} />
+        </Switch>
       </div>
     </Router>
   );
