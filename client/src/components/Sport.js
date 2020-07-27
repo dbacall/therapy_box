@@ -10,11 +10,10 @@ const url = config.url.API_URL;
 
 function Sport(props) {
   const [data, setData] = useState(null);
-  const [newTeam, setNewTeam] = useState('');
+  const [newTeam, setNewTeam] = useState(null);
   const [oldTeam, setOldTeam] = useState(null);
   const [beatenTeams, setBeatenTeams] = useState(null);
   const [teamLoaded, setTeamLoaded] = useState(false);
-  const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     csv(sportsData).then((res) => {
@@ -29,14 +28,18 @@ function Sport(props) {
   }, [props.location.state]);
 
   useEffect(() => {
-    if (newTeam.length > 0) {
+    if (newTeam) {
       findBeatenTeams(newTeam);
+      saveTeam();
     }
   }, [newTeam]);
 
   useEffect(() => {
     if (oldTeam !== '') {
       setTeamLoaded(true);
+    }
+    if (oldTeam) {
+      updateTeam();
     }
   }, [oldTeam]);
 
@@ -46,20 +49,6 @@ function Sport(props) {
       setTeamLoaded(false);
     }
   }, [data]);
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (newTeam !== '') {
-      findBeatenTeams(newTeam);
-    } else {
-      findBeatenTeams(oldTeam);
-    }
-    if (oldTeam) {
-      updateTeam();
-    } else {
-      saveTeam();
-    }
-  };
 
   const findBeatenTeams = (team) => {
     setBeatenTeams(
@@ -91,7 +80,6 @@ function Sport(props) {
       .post(`${url}/team/create`, team)
       .then((res) => {
         console.log('Team Added');
-        setRedirect(true);
       })
       .catch((err) => {
         console.error(err);
@@ -106,41 +94,27 @@ function Sport(props) {
       .post(`${url}/team/${props.location.state.team[0]._id}`, teamToUpdate)
       .then((res) => {
         console.log('Team updated');
-        setRedirect(true);
       })
       .catch((err) => {
         console.error(err);
       });
   };
 
-  return redirect ? (
-    <Redirect
-      to={{
-        pathname: '/',
-      }}
-    />
-  ) : (
+  return (
     <div className="sports-container">
       <h1 className="sports-title">Sport</h1>
       {data ? (
-        <form onSubmit={onSubmit}>
-          <input
-            type="text"
-            placeholder="Input team name"
-            value={oldTeam ? oldTeam : newTeam}
-            onChange={(e) =>
-              oldTeam || oldTeam === ''
-                ? setOldTeam(e.target.value)
-                : setNewTeam(e.target.value)
-            }
-            className="team-input"
-          />
-          <input
-            type="submit"
-            value="Save your team"
-            className="team-input-btn"
-          />
-        </form>
+        <input
+          type="text"
+          placeholder="Input team name"
+          value={oldTeam ? oldTeam : newTeam}
+          onChange={(e) =>
+            oldTeam || oldTeam === ''
+              ? setOldTeam(e.target.value)
+              : setNewTeam(e.target.value)
+          }
+          className="team-input"
+        />
       ) : null}
       {beatenTeams ? (
         <ul className="team-list">
