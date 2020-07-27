@@ -81,7 +81,7 @@ function Sport(props) {
   };
 
   const saveTeam = () => {
-    const userId = props.location.state.user.id;
+    const userId = localStorage.getItem('userId');
 
     const team = {
       name: newTeam,
@@ -117,7 +117,6 @@ function Sport(props) {
     <Redirect
       to={{
         pathname: '/',
-        state: { user: props.location.state.user },
       }}
     />
   ) : (

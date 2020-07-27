@@ -22,9 +22,6 @@ class Photos extends Component {
           <Link
             to={{
               pathname: '/photos/add',
-              state: {
-                user: this.props.location.state.user,
-              },
             }}
             className="add-photo-link"
           >

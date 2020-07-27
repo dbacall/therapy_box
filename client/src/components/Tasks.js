@@ -40,7 +40,7 @@ class Tasks extends Component {
   };
 
   saveTasks = () => {
-    const userId = this.props.location.state.user.id;
+    const userId = localStorage.getItem('userId');
     this.state.tasks.forEach((task, i) => {
       if (task.userId === userId) {
         this.updateTask(task.message, task.completed, task._id);
@@ -89,7 +89,6 @@ class Tasks extends Component {
       <Redirect
         to={{
           pathname: '/',
-          state: { user: this.props.location.state.user },
         }}
       />
     ) : (

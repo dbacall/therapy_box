@@ -26,7 +26,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    const userId = this.props.location.state.user.id;
+    const userId = localStorage.getItem('userId');
 
     this.getTasks(userId);
 
@@ -150,6 +150,9 @@ class Dashboard extends Component {
 
   logOut = () => {
     localStorage.removeItem('jwtToken');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('username');
+    localStorage.removeItem('profilePicture');
     this.setState({ redirect: true });
   };
 
@@ -163,16 +166,16 @@ class Dashboard extends Component {
       photos,
       redirect,
     } = this.state;
+    const username = localStorage.getItem('username');
+    const profPic = localStorage.getItem('profilePicture');
     return redirect ? (
       <Redirect to={'/login'} />
     ) : (
       <div>
-        <h1 className="dashboard-title">
-          Good day {this.props.location.state.user.username}
-        </h1>
+        <h1 className="dashboard-title">Good day {username}</h1>
         <div className="profpic-container">
           <img
-            src={`${url}/${this.props.location.state.user.profilePicture}`}
+            src={`${url}/${profPic}`}
             alt="Profile Pic"
             className="profpic"
           />
@@ -211,7 +214,6 @@ class Dashboard extends Component {
             to={{
               pathname: '/news',
               state: {
-                user: this.props.location.state.user,
                 news: this.state.news,
               },
             }}
@@ -243,7 +245,6 @@ class Dashboard extends Component {
             to={{
               pathname: '/sport',
               state: {
-                user: this.props.location.state.user,
                 team: team,
               },
             }}
@@ -260,7 +261,6 @@ class Dashboard extends Component {
             to={{
               pathname: '/photos',
               state: {
-                user: this.props.location.state.user,
                 photos: this.state.photos,
               },
             }}
@@ -308,7 +308,6 @@ class Dashboard extends Component {
             to={{
               pathname: '/tasks',
               state: {
-                user: this.props.location.state.user,
                 tasks: this.state.tasks,
               },
             }}

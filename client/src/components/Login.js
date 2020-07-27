@@ -40,6 +40,9 @@ class Login extends Component {
         const { token } = res.data;
         const user = jwt_decode(token);
         localStorage.setItem('jwtToken', token);
+        localStorage.setItem('userId', user.id);
+        localStorage.setItem('username', user.username);
+        localStorage.setItem('profilePicture', user.profilePicture);
         this.setState({ user: user, redirect: true });
       })
       .catch((err) => {

@@ -20,7 +20,7 @@ class AddPhoto extends Component {
   };
 
   onSubmit = () => {
-    const userId = this.props.location.state.user.id;
+    const userId = localStorage.getItem('userId');
     var data = new FormData();
     data.append('userId', userId);
     data.append('photo', this.state.photo);
@@ -48,9 +48,6 @@ class AddPhoto extends Component {
       <Redirect
         to={{
           pathname: '/',
-          state: {
-            user: this.props.location.state.user,
-          },
         }}
       />
     ) : (
