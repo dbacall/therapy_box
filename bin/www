@@ -33,7 +33,10 @@ server.on('listening', onListening);
 
 const mongoose = require('mongoose');
 const mongodb = require('../config/keys').mongoURI;
-mongoose.connect(mongodb, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.MONGODB_URI || mongodb, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
