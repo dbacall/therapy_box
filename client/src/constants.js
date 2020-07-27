@@ -1,6 +1,6 @@
 const prod = {
   url: {
-    API_URL: 'https://myapp.herokuapp.com',
+    API_URL: 'https://therapy-box-tech-test.herokuapp.com/',
   },
 };
 
