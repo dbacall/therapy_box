@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import '../stylesheets/Tasks.css';
 import plus from '../assets/Plus_button_small.png';
@@ -9,8 +8,15 @@ class Tasks extends Component {
     super(props);
     this.state = {
       tasks: this.props.location.state.tasks,
-      redirect: false,
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.location.state) {
+      if (prevState.tasks !== this.state.tasks) {
+        this.saveTasks();
+      }
+    }
   }
 
   addTask = () => {
@@ -24,19 +30,46 @@ class Tasks extends Component {
   };
 
   changeTask = (e) => {
+    const userId = localStorage.getItem('userId');
+
     var newTasks = this.state.tasks;
-    newTasks[e.target.id].message = e.target.value;
+    var index = e.target.id;
+    newTasks[index].message = e.target.value;
     this.setState({
       tasks: newTasks,
     });
+    var { tasks } = this.state;
+    if (tasks[index].userId === userId) {
+      this.updateTask(
+        tasks[index].message,
+        tasks[index].completed,
+        tasks[index]._id
+      );
+    } else {
+      this.postTask(tasks[index].message, tasks[index].completed, userId);
+    }
   };
 
   onCheck = (e) => {
+    const userId = localStorage.getItem('userId');
+    var index = e.target.id;
+
     var newTasks = this.state.tasks;
     newTasks[e.target.id].completed = !newTasks[e.target.id].completed;
     this.setState({
       tasks: newTasks,
     });
+    var { tasks } = this.state;
+
+    if (tasks[index].userId === userId) {
+      this.updateTask(
+        tasks[index].message,
+        tasks[index].completed,
+        tasks[index]._id
+      );
+    } else {
+      this.postTask(tasks[index].message, tasks[index].completed, userId);
+    }
   };
 
   saveTasks = () => {
@@ -59,7 +92,6 @@ class Tasks extends Component {
       .post(`http://localhost:5000/tasks/task/${taskId}`, taskToUpdate)
       .then((res) => {
         console.log('Task updated');
-        this.setState({ redirect: true });
       })
       .catch((err) => {
         console.error(err);
@@ -85,13 +117,7 @@ class Tasks extends Component {
 
   render() {
     const { tasks } = this.state;
-    return this.state.redirect ? (
-      <Redirect
-        to={{
-          pathname: '/',
-        }}
-      />
-    ) : (
+    return (
       <div className="tasks-container">
         <h1 className="tasks-title">Tasks</h1>
         <ul className="task-list">
@@ -121,9 +147,6 @@ class Tasks extends Component {
         </ul>
         <button onClick={this.addTask} className="add-task-btn">
           <img src={plus} className="plus-icon" alt="plus" />
-        </button>
-        <button onClick={this.saveTasks} className="save-task-btn">
-          Save
         </button>
       </div>
     );
