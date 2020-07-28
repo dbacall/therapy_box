@@ -14,6 +14,7 @@ function Sport(props) {
   const [oldTeam, setOldTeam] = useState(null);
   const [beatenTeams, setBeatenTeams] = useState(null);
   const [teamLoaded, setTeamLoaded] = useState(false);
+  const [teamToUpdate, setTeamToUpdate] = useState(null);
 
   useEffect(() => {
     csv(sportsData).then((res) => {
@@ -24,24 +25,59 @@ function Sport(props) {
   useEffect(() => {
     if (props.location.state.team.length > 0) {
       setOldTeam(props.location.state.team[0].name);
+      setTeamToUpdate(props.location.state.team);
     }
   }, [props.location.state]);
 
   useEffect(() => {
-    if (newTeam) {
+    const userId = localStorage.getItem('userId');
+
+    if (newTeam && newTeam.length === 1) {
       findBeatenTeams(newTeam);
       saveTeam();
+    }
+    if (newTeam && newTeam.length > 1) {
+      getTeam(userId);
+      findBeatenTeams(newTeam);
     }
   }, [newTeam]);
 
   useEffect(() => {
+    const userId = localStorage.getItem('userId');
+
     if (oldTeam !== '') {
       setTeamLoaded(true);
     }
     if (oldTeam) {
-      updateTeam();
+      getTeam(userId);
     }
   }, [oldTeam]);
+
+  useEffect(() => {
+    if (newTeam && teamToUpdate) {
+      const team = {
+        name: newTeam,
+      };
+      updateTeam(team);
+    }
+    if (oldTeam && teamToUpdate) {
+      const team = {
+        name: oldTeam,
+      };
+      updateTeam(team);
+    }
+  }, [teamToUpdate]);
+
+  const getTeam = (userId) => {
+    axios
+      .get(`${url}/team/${userId}`)
+      .then((res) => {
+        setTeamToUpdate(res.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
   useEffect(() => {
     if (teamLoaded) {
@@ -86,12 +122,9 @@ function Sport(props) {
       });
   };
 
-  const updateTeam = () => {
-    const teamToUpdate = {
-      name: oldTeam,
-    };
+  const updateTeam = (team) => {
     axios
-      .post(`${url}/team/${props.location.state.team[0]._id}`, teamToUpdate)
+      .post(`${url}/team/${teamToUpdate[0]._id}`, team)
       .then((res) => {
         console.log('Team updated');
       })
