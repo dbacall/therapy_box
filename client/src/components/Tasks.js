@@ -23,8 +23,6 @@ class Tasks extends Component {
   };
 
   changeTask = (e) => {
-    const userId = localStorage.getItem('userId');
-
     var newTasks = this.state.tasks;
     var index = e.target.id;
     newTasks[index].message = e.target.value;
@@ -32,19 +30,14 @@ class Tasks extends Component {
       tasks: newTasks,
     });
     var { tasks } = this.state;
-    // if (tasks[index]) {
     this.updateTask(
       tasks[index].message,
       tasks[index].completed,
       tasks[index]._id
     );
-    // } else {
-    //   this.postTask(tasks[index].message, tasks[index].completed, userId);
-    // }
   };
 
   onCheck = (e) => {
-    const userId = localStorage.getItem('userId');
     var index = e.target.id;
 
     var newTasks = this.state.tasks;
@@ -54,15 +47,11 @@ class Tasks extends Component {
     });
     var { tasks } = this.state;
 
-    // if (tasks[index]) {
     this.updateTask(
       tasks[index].message,
       tasks[index].completed,
       tasks[index]._id
     );
-    // } else {
-    //   this.postTask(tasks[index].message, tasks[index].completed, userId);
-    // }
   };
 
   componentDidUpdate(prevProps, prevState) {
