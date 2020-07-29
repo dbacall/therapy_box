@@ -2,31 +2,24 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../stylesheets/Tasks.css';
 import plus from '../assets/Plus_button_small.png';
+import { config } from '../constants';
+
+const url = config.url.API_URL;
 
 class Tasks extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tasks: this.props.location.state.tasks,
+      newTaskAdded: false,
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.props.location.state) {
-      if (prevState.tasks !== this.state.tasks) {
-        this.saveTasks();
-      }
-    }
-  }
-
   addTask = () => {
-    this.setState({
-      tasks: this.state.tasks.concat({
-        message: `Task ${this.state.tasks.length + 1}`,
-        completed: false,
-        id: null,
-      }),
-    });
+    const userId = localStorage.getItem('userId');
+
+    this.postTask(`Task ${this.state.tasks.length + 1}`, false, userId);
+    this.getTasks(userId);
   };
 
   changeTask = (e) => {
@@ -39,15 +32,15 @@ class Tasks extends Component {
       tasks: newTasks,
     });
     var { tasks } = this.state;
-    if (tasks[index].userId === userId) {
-      this.updateTask(
-        tasks[index].message,
-        tasks[index].completed,
-        tasks[index]._id
-      );
-    } else {
-      this.postTask(tasks[index].message, tasks[index].completed, userId);
-    }
+    // if (tasks[index]) {
+    this.updateTask(
+      tasks[index].message,
+      tasks[index].completed,
+      tasks[index]._id
+    );
+    // } else {
+    //   this.postTask(tasks[index].message, tasks[index].completed, userId);
+    // }
   };
 
   onCheck = (e) => {
@@ -61,26 +54,35 @@ class Tasks extends Component {
     });
     var { tasks } = this.state;
 
-    if (tasks[index].userId === userId) {
-      this.updateTask(
-        tasks[index].message,
-        tasks[index].completed,
-        tasks[index]._id
-      );
-    } else {
-      this.postTask(tasks[index].message, tasks[index].completed, userId);
-    }
+    // if (tasks[index]) {
+    this.updateTask(
+      tasks[index].message,
+      tasks[index].completed,
+      tasks[index]._id
+    );
+    // } else {
+    //   this.postTask(tasks[index].message, tasks[index].completed, userId);
+    // }
   };
 
-  saveTasks = () => {
+  componentDidUpdate(prevProps, prevState) {
     const userId = localStorage.getItem('userId');
-    this.state.tasks.forEach((task, i) => {
-      if (task.userId === userId) {
-        this.updateTask(task.message, task.completed, task._id);
-      } else {
-        this.postTask(task.message, task.completed, userId);
-      }
-    });
+
+    if (this.state.newTaskAdded) {
+      this.getTasks(userId);
+      this.setState({ newTaskAdded: false });
+    }
+  }
+
+  getTasks = (userId) => {
+    axios
+      .get(`${url}/tasks/${userId}`)
+      .then((res) => {
+        this.setState({ tasks: res.data });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   updateTask = (message, completed, taskId) => {
